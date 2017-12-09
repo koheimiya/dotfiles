@@ -9,7 +9,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Townk/vim-autoclose'
-Plug 'autozimu/LanguageClient-neovim', {'do': ':UpdateRemotePlugins', 'for': 'hakell'}
+Plug 'autozimu/LanguageClient-neovim', {'do': ':UpdateRemotePlugins', 'for': 'haskell'}
 " git ---
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
