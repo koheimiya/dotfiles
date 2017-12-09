@@ -1,4 +1,5 @@
 "" pyenv support ---- begin
+let g:python_host_prog = $PYENV_ROOT . '/shims/python2'
 let g:python3_host_prog = $PYENV_ROOT . '/shims/python3'
 "" pyenv support ---- end
 
