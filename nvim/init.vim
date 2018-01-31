@@ -9,7 +9,11 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Townk/vim-autoclose'
-Plug 'autozimu/LanguageClient-neovim', {'do': ':UpdateRemotePlugins', 'for': 'haskell'}
+Plug 'autozimu/LanguageClient-neovim', {'do': ':UpdateRemotePlugins', 'for': ['haskell', 'python', 'rust']}
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+" syntax checker
+Plug 'w0rp/ale', {'for': ['rust']}
 " git ---
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -78,12 +82,23 @@ let g:vimtex_view_general_options = '@line @pdf @tex'
 let g:vimtex_compiler_progname = 'nvr'
 "" vimtex ---- end
 
+"" nerdtree ---- begin
+" Auto open when specifying directory
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+"" nerdtree ---- end
+
 "" LanguageClinet ---- begin
 set hidden
 let g:LanguageClient_serverCommands = {
     \ 'haskell': ['hie', '--lsp'],
+    \ 'python': ['pyls'],
+    \ 'rust': ['rustup', 'run', 'rls'],
     \ }
 let g:LanguageClient_autoStart = 1
+nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 "" LanguageClinet ---- end
 
 "" Airline ---- begin
@@ -104,7 +119,7 @@ set scrolloff=5
 
 nnoremap j gj
 nnoremap k gk
-nnoremap <C-c> <esc>
+inoremap <C-c> <esc>
 tnoremap <silent> <C-\><C-c> <C-\><C-n>
 let mapleader = "\<Space>"
 
