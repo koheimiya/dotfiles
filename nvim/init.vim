@@ -9,7 +9,11 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Townk/vim-autoclose'
-Plug 'autozimu/LanguageClient-neovim', {'do': ':UpdateRemotePlugins', 'for': 'haskell'}
+Plug 'autozimu/LanguageClient-neovim', {'do': ':UpdateRemotePlugins', 'for': ['haskell', 'python', 'rust']}
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+" syntax checker
+Plug 'w0rp/ale', {'for': ['rust']}
 " git ---
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -66,6 +70,12 @@ let g:haskell_enable_static_pointers = 1
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 "" haskell-vim ---- end
 
+""
+" override the defaults for a particular FileType
+autocmd FileType rust
+            \ let b:AutoClosePairs = AutoClose#ParsePairs("() [] {} ` \"")
+""
+
 "" vim-hindent ---- begin
 let g:hindent_on_save = 0
 let g:hindent_indent_size = 4
@@ -80,12 +90,23 @@ let g:tex_flavor = "latex"
 let g:vimtex_latexmk_options = '-pdfdvi'
 "" vimtex ---- end
 
+"" nerdtree ---- begin
+" Auto open when specifying directory
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+"" nerdtree ---- end
+
 "" LanguageClinet ---- begin
 set hidden
 let g:LanguageClient_serverCommands = {
     \ 'haskell': ['hie', '--lsp'],
+    \ 'python': ['pyls'],
+    \ 'rust': ['rls'],
     \ }
 let g:LanguageClient_autoStart = 1
+nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 "" LanguageClinet ---- end
 
 "" Airline ---- begin
