@@ -21,7 +21,7 @@ Plug 'NLKNguyen/papercolor-theme'
 " Plug 'altercation/vim-colors-solarized'
 " Plug 'freeo/vim-kalisi'
 " tex ---
-Plug 'lervag/vimtex'
+Plug 'lervag/vimtex', {'for': 'tex'}
 " haskel ---
 Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}  " syntax highlighting
 Plug 'nbouscal/vim-stylish-haskell', {'for': 'haskell'}  " formatting
@@ -48,7 +48,7 @@ augroup quickfix_config
     au QuickFixCmdPost *grep* cwindow  " open quickFix on (vim)grep
 augroup END
 " adjust height
-au FileType qf call AdjustWindowHeight(3, 10)
+au FileType qf call AdjustWindowHeight(1, 3)
 function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
@@ -76,6 +76,8 @@ let g:hindent_line_index = 100
 let g:vimtex_view_general_viewer = '/Applications/Skim.app/Contents/SharedSupport/displayline'
 let g:vimtex_view_general_options = '@line @pdf @tex'
 let g:vimtex_compiler_progname = 'nvr'
+let g:tex_flavor = "latex"
+let g:vimtex_latexmk_options = '-pdfdvi'
 "" vimtex ---- end
 
 "" LanguageClinet ---- begin
@@ -104,7 +106,7 @@ set scrolloff=5
 
 nnoremap j gj
 nnoremap k gk
-nnoremap <C-c> <esc>
+noremap <C-c> <esc>
 tnoremap <silent> <C-\><C-c> <C-\><C-n>
 let mapleader = "\<Space>"
 
