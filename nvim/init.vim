@@ -70,6 +70,12 @@ let g:haskell_enable_static_pointers = 1
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 "" haskell-vim ---- end
 
+""
+" override the defaults for a particular FileType
+autocmd FileType rust
+            \ let b:AutoClosePairs = AutoClose#ParsePairs("() [] {} ` \"")
+""
+
 "" vim-hindent ---- begin
 let g:hindent_on_save = 0
 let g:hindent_indent_size = 4
@@ -93,7 +99,7 @@ set hidden
 let g:LanguageClient_serverCommands = {
     \ 'haskell': ['hie', '--lsp'],
     \ 'python': ['pyls'],
-    \ 'rust': ['rustup', 'run', 'rls'],
+    \ 'rust': ['rls'],
     \ }
 let g:LanguageClient_autoStart = 1
 nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
