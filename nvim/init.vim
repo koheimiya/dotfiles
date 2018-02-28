@@ -128,7 +128,7 @@ set scrolloff=5
 nnoremap j gj
 nnoremap k gk
 noremap <C-c> <esc>
-tnoremap <silent> <C-\><C-c> <C-\><C-n>
+tnoremap <silent> <C-[> <C-\><C-n>
 let mapleader = "\<Space>"
 
 syntax enable
