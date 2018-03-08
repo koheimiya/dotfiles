@@ -24,6 +24,7 @@ Plug 'NLKNguyen/papercolor-theme'
 " Plug 'rakr/vim-one'
 " Plug 'altercation/vim-colors-solarized'
 Plug 'iCyMind/NeoSolarized'
+Plug 'tamelion/neovim-molokai'
 " Plug 'freeo/vim-kalisi'
 " tex ---
 Plug 'lervag/vimtex', {'for': 'tex'}
@@ -137,7 +138,7 @@ syntax enable
 filetype indent plugin on
 set termguicolors
 set background=dark
-colorscheme NeoSolarized
+colorscheme molokai
 " set background=light
 " colorscheme PaperColor
 set t_Co=256
