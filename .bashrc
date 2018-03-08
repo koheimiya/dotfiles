@@ -13,8 +13,8 @@ yellow="\[$(tput setaf 3)\]"
 reset="\[$(tput sgr0)\]"
 
 # スクリプト読み込み
-source $HOME/.git-completion.bash
-source $HOME/.git-prompt.sh
+source $HOME/dotfiles/.git-completion.bash
+source $HOME/dotfiles/.git-prompt.sh
 
 # プロンプトに各種情報を表示
 GIT_PS1_SHOWDIRTYSTATE=1
