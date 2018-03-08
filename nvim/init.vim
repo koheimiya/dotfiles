@@ -23,6 +23,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'NLKNguyen/papercolor-theme'
 " Plug 'rakr/vim-one'
 " Plug 'altercation/vim-colors-solarized'
+Plug 'iCyMind/NeoSolarized'
 " Plug 'freeo/vim-kalisi'
 " tex ---
 Plug 'lervag/vimtex', {'for': 'tex'}
@@ -110,7 +111,8 @@ nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 "" LanguageClinet ---- end
 
 "" Airline ---- begin
-let g:airline_theme='papercolor'
+" let g:airline_theme='papercolor'
+" let g:airline_theme='solarized'
 let g:airline#extensions#tabline#enabled = 1
 "" Airline ---- end
 
@@ -133,8 +135,10 @@ let mapleader = "\<Space>"
 
 syntax enable
 filetype indent plugin on
-
-set background=light
-colorscheme PaperColor
+set termguicolors
+set background=dark
+colorscheme NeoSolarized
+" set background=light
+" colorscheme PaperColor
 set t_Co=256
 "" Default ---- end
