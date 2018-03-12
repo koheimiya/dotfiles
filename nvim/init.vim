@@ -136,7 +136,9 @@ let mapleader = "\<Space>"
 
 syntax enable
 filetype indent plugin on
-set termguicolors
+" set termguicolors
+" let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum" " tmux 対応
+" let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum" " tmux 対応
 set background=dark
 colorscheme molokai
 " set background=light

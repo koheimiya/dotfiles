@@ -33,7 +33,7 @@ GIT_PS1_SHOWSTASHSTATE=1
 # \] 表示させない文字列の終了
 # \$ $
 # export PS1="${green}\h${reset}:${yellow}\W${reset}"'$(__git_ps1 ['${red}'%s'${reset}'])'"${reset}> "
-export PS1='\[\033[1;32m\]\u@\h\[\033[00m\]:\[\033[1;34m\]\w\[\033[1;31m\]$(__git_ps1 "[%s]")\[\033[00m\]> '
+export PS1='\[\033[1;32m\]\u@\h<'$UDOCKER_NAME'>\[\033[00m\]:\[\033[1;34m\]\w\[\033[1;31m\]$(__git_ps1 "[%s]")\[\033[00m\]> '
 ##############
 
 
