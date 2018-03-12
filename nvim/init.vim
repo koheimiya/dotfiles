@@ -24,7 +24,8 @@ Plug 'NLKNguyen/papercolor-theme'
 " Plug 'rakr/vim-one'
 " Plug 'altercation/vim-colors-solarized'
 Plug 'iCyMind/NeoSolarized'
-Plug 'tamelion/neovim-molokai'
+" Plug 'tamelion/neovim-molokai'
+Plug 'tomasr/molokai'
 " Plug 'freeo/vim-kalisi'
 " tex ---
 Plug 'lervag/vimtex', {'for': 'tex'}
@@ -135,11 +136,11 @@ tnoremap <silent> <C-[> <C-\><C-n>
 let mapleader = "\<Space>"
 
 syntax enable
-filetype indent plugin on
-set termguicolors
-set background=dark
+" colorscheme zellner
 colorscheme molokai
+" set termguicolors
+set background=dark
 " set background=light
-" colorscheme PaperColor
 set t_Co=256
+filetype indent plugin on
 "" Default ---- end
