@@ -119,15 +119,27 @@ let g:airline#extensions#tabline#enabled = 1
 "" Airline ---- end
 
 "" Default ---- begin
-set tabstop=4
+set tabstop=8
 set autoindent
 set expandtab
+set smarttab
 set shiftwidth=4
+set softtabstop=4 
+
+set shiftround          " '<'や'>'でインデントする際に'shiftwidth'の倍数に丸める
+set infercase           " 補完時に大文字小文字を区別しない
+set virtualedit=block     " カーソルを文字が存在しない部分でも動けるようにする
+set hidden              " バッファを閉じる代わりに隠す（Undo履歴を残すため）
+set showmatch           " 対応する括弧などをハイライト表示する
+set matchtime=3         " 対応括弧のハイライト表示を3秒にする
+
 
 set number
 set ruler
 set laststatus=2
 set scrolloff=5
+set nocursorline
+set lazyredraw
 
 nnoremap j gj
 nnoremap k gk
@@ -143,4 +155,6 @@ set background=dark
 " set background=light
 set t_Co=256
 filetype indent plugin on
+
+
 "" Default ---- end
