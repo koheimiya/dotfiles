@@ -1,12 +1,17 @@
 "" Plug manager ---- begin
 call plug#begin('~/.local/share/nvim/plugged')
 " basic ---
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-sensible'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Townk/vim-autoclose'
-Plug 'autozimu/LanguageClient-neovim', {'do': ':UpdateRemotePlugins', 'for': ['haskell', 'python', 'rust']}
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'autozimu/LanguageClient-neovim', {'do': ':UpdateRemotePlugins', 'for': ['haskell', 'python', 'rust']}
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 " syntax checker
 Plug 'w0rp/ale', {'for': ['rust']}
 " git ---
