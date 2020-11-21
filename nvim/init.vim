@@ -1,8 +1,3 @@
-"" pyenv support ---- begin
-let g:python_host_prog = $PYENV_ROOT . '/shims/python2'
-let g:python3_host_prog = $PYENV_ROOT . '/shims/python3'
-"" pyenv support ---- end
-
 "" Plug manager ---- begin
 call plug#begin('~/.local/share/nvim/plugged')
 " basic ---
@@ -86,11 +81,23 @@ let g:hindent_line_index = 100
 "" vim-hindent ---- end
 
 "" vimtex ---- begin
-let g:vimtex_view_general_viewer = '/Applications/Skim.app/Contents/SharedSupport/displayline'
-let g:vimtex_view_general_options = '@line @pdf @tex'
-let g:vimtex_compiler_progname = 'nvr'
 let g:tex_flavor = "latex"
-let g:vimtex_latexmk_options = '-pdfdvi'
+let g:vimtex_compiler_latexmk = {
+      \ 'background': 1,
+      \ 'build_dir': 'build',
+      \ 'continuous': 1,
+      \ 'options': [
+      \    '-pdfdvi', 
+      \    '-verbose',
+      \    '-file-line-error',
+      \    '-synctex=1',
+      \    '-interaction=nonstopmode',
+      \],
+      \}
+
+let g:vimtex_view_general_viewer
+      \ = '/Applications/Skim.app/Contents/SharedSupport/displayline'
+let g:vimtex_view_general_options = '-r @line @pdf @tex'
 "" vimtex ---- end
 
 "" nerdtree ---- begin
