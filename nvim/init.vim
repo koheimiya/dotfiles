@@ -9,7 +9,10 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Townk/vim-autoclose'
-Plug 'autozimu/LanguageClient-neovim', {'do': ':UpdateRemotePlugins', 'for': ['haskell', 'python', 'rust']}
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 " syntax checker
@@ -103,7 +106,7 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 set hidden
 let g:LanguageClient_serverCommands = {
     \ 'haskell': ['hie', '--lsp'],
-    \ 'python': ['pyls'],
+    \ 'python': ['tcp://localhost:50505'],
     \ 'rust': ['rls'],
     \ }
 let g:LanguageClient_autoStart = 1
@@ -155,6 +158,9 @@ set background=dark
 " set background=light
 set t_Co=256
 filetype indent plugin on
+
+" vimgrep, grepなどの出力を自動的にquickfix-windowに流す
+autocmd QuickFixCmdPost *grep* cwindow
 
 
 "" Default ---- end
