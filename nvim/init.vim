@@ -86,11 +86,23 @@ let g:hindent_line_index = 100
 "" vim-hindent ---- end
 
 "" vimtex ---- begin
-let g:vimtex_view_general_viewer = '/Applications/Skim.app/Contents/SharedSupport/displayline'
-let g:vimtex_view_general_options = '@line @pdf @tex'
-let g:vimtex_compiler_progname = 'nvr'
 let g:tex_flavor = "latex"
-let g:vimtex_latexmk_options = '-pdfdvi'
+let g:vimtex_compiler_latexmk = {
+      \ 'background': 1,
+      \ 'build_dir': 'build',
+      \ 'continuous': 1,
+      \ 'options': [
+      \    '-pdfdvi', 
+      \    '-verbose',
+      \    '-file-line-error',
+      \    '-synctex=1',
+      \    '-interaction=nonstopmode',
+      \],
+      \}
+
+let g:vimtex_view_general_viewer
+      \ = '/Applications/Skim.app/Contents/SharedSupport/displayline'
+let g:vimtex_view_general_options = '-r @line @pdf @tex'
 "" vimtex ---- end
 
 "" nerdtree ---- begin
@@ -103,7 +115,7 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 set hidden
 let g:LanguageClient_serverCommands = {
     \ 'haskell': ['hie', '--lsp'],
-    \ 'python': ['pyls'],
+    \ 'python': ['tcp://localhost:50505'],
     \ 'rust': ['rls'],
     \ }
 let g:LanguageClient_autoStart = 1
@@ -155,6 +167,9 @@ set background=dark
 " set background=light
 set t_Co=256
 filetype indent plugin on
+
+" vimgrep, grepなどの出力を自動的にquickfix-windowに流す
+autocmd QuickFixCmdPost *grep* cwindow
 
 
 "" Default ---- end
