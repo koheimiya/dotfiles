@@ -1,3 +1,4 @@
+let mapleader = "\<Space>"
 "" Plug manager ---- begin
 call plug#begin('~/.local/share/nvim/plugged')
 " basic ---
@@ -157,7 +158,6 @@ nnoremap j gj
 nnoremap k gk
 noremap <C-c> <esc>
 tnoremap <silent> <C-[> <C-\><C-n>
-let mapleader = "\<Space>"
 
 syntax enable
 " colorscheme zellner
