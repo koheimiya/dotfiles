@@ -1,45 +1,29 @@
-let mapleader = "\<Space>"
+filetype off
+filetype indent plugin off
+
 "" Plug manager ---- begin
 call plug#begin('~/.local/share/nvim/plugged')
 " basic ---
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-sensible'
-Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'Townk/vim-autoclose'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-" Plug 'autozimu/LanguageClient-neovim', {'do': ':UpdateRemotePlugins', 'for': ['haskell', 'python', 'rust']}
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-" syntax checker
-Plug 'w0rp/ale', {'for': ['rust']}
 " git ---
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 " GUIs ---
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'NLKNguyen/papercolor-theme'
-" Plug 'rakr/vim-one'
-" Plug 'altercation/vim-colors-solarized'
-Plug 'iCyMind/NeoSolarized'
-" Plug 'tamelion/neovim-molokai'
 Plug 'tomasr/molokai'
-" Plug 'freeo/vim-kalisi'
-" tex ---
-Plug 'lervag/vimtex', {'for': 'tex'}
-" haskel ---
-Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}  " syntax highlighting
-Plug 'nbouscal/vim-stylish-haskell', {'for': 'haskell'}  " formatting
-Plug 'itchyny/vim-haskell-indent', {'for': 'haskell'}  " smart indent
+" Language server
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 call plug#end()
 "" Plug manager ---- end
 
-"" Deoplete ---- begin
-let g:deoplete#enable_at_startup = 1
-"" Deoplete ---- end
+
 
 "" Fugitive ---- begin
 nmap [figitive] <Nop>
@@ -62,49 +46,9 @@ function! AdjustWindowHeight(minheight, maxheight)
 endfunction
 "" QuickFix ---- end
 
-"" haskell-vim ---- begin
-let g:haskell_indent_disable = 1
-let g:haskell_classic_highlighting = 1  " haskell-vim
-let g:haskell_enable_quantification = 1
-let g:haskell_enable_recursivedo = 1
-let g:haskell_enable_arrowsyntax = 1
-let g:haskell_enable_pattern_synonyms = 1
-let g:haskell_enable_typeroles = 1
-let g:haskell_enable_static_pointers = 1
-let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
-"" haskell-vim ---- end
-
-""
 " override the defaults for a particular FileType
 autocmd FileType rust
-            \ let b:AutoClosePairs = AutoClose#ParsePairs("() [] {} ` \"")
-""
-
-"" vim-hindent ---- begin
-let g:hindent_on_save = 0
-let g:hindent_indent_size = 4
-let g:hindent_line_index = 100
-"" vim-hindent ---- end
-
-"" vimtex ---- begin
-let g:tex_flavor = "latex"
-let g:vimtex_compiler_latexmk = {
-      \ 'background': 1,
-      \ 'build_dir': 'build',
-      \ 'continuous': 1,
-      \ 'options': [
-      \    '-pdfdvi', 
-      \    '-verbose',
-      \    '-file-line-error',
-      \    '-synctex=1',
-      \    '-interaction=nonstopmode',
-      \],
-      \}
-
-let g:vimtex_view_general_viewer
-      \ = '/Applications/Skim.app/Contents/SharedSupport/displayline'
-let g:vimtex_view_general_options = '-r @line @pdf @tex'
-"" vimtex ---- end
+            \ let b:AutoClosePairs = AutoClose#ParsePairs("() [] {} ` \" '")
 
 "" nerdtree ---- begin
 " Auto open when specifying directory
@@ -112,26 +56,12 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 "" nerdtree ---- end
 
-"" LanguageClinet ---- begin
-set hidden
-let g:LanguageClient_serverCommands = {
-    \ 'haskell': ['hie', '--lsp'],
-    \ 'python': ['tcp://localhost:50505'],
-    \ 'rust': ['rls'],
-    \ }
-let g:LanguageClient_autoStart = 1
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-"" LanguageClinet ---- end
-
 "" Airline ---- begin
-" let g:airline_theme='papercolor'
-" let g:airline_theme='solarized'
 let g:airline#extensions#tabline#enabled = 1
 "" Airline ---- end
 
 "" Default ---- begin
+set hidden
 set tabstop=8
 set autoindent
 set expandtab
@@ -158,18 +88,68 @@ nnoremap j gj
 nnoremap k gk
 noremap <C-c> <esc>
 tnoremap <silent> <C-[> <C-\><C-n>
+let mapleader = "\<Space>"
 
 syntax enable
-" colorscheme zellner
-colorscheme molokai
+try
+    colorscheme molokai
+catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme zellner
+endtry
 " set termguicolors
 set background=dark
 " set background=light
 set t_Co=256
-filetype indent plugin on
-
-" vimgrep, grepなどの出力を自動的にquickfix-windowに流す
-autocmd QuickFixCmdPost *grep* cwindow
-
 
 "" Default ---- end
+
+
+if (executable('pyls'))
+    let s:pyls_config = {'pyls': {'plugins': {
+        \   'pycodestyle': {'enabled': v:true},
+        \   'pydocstyle': {'enabled': v:false},
+        \   'pylint': {'enabled': v:false},
+        \   'flake8': {'enabled': v:true},
+        \   'mypy': {'enabled': v:true},
+        \   'jedi_definition': {
+        \     'follow_imports': v:true,
+        \     'follow_builtin_imports': v:true,
+        \   },
+        \ }}}
+    " pylsの起動定義
+    augroup LspPython
+        autocmd!
+        autocmd User lsp_setup call lsp#register_server({
+            \ 'name': 'pyls',
+            \ 'cmd': { server_info -> ['pyls'] },
+            \ 'whitelist': ['python'],
+            \ 'workspace_config': s:pyls_config
+            \})
+    augroup END
+endif
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+
+    nmap <buffer> <leader>mc :<C-u>Make<Space>edit-check<CR>
+    
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+
+filetype indent plugin on
