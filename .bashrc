@@ -84,3 +84,8 @@ function _makefile_targets {
     COMPREPLY=( $(compgen -W "${targets[@]}" -- $curr_arg ) );
 }
 complete -F _makefile_targets make
+
+
+export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.poetry/bin:$PATH
+export EDITOR=nvim
