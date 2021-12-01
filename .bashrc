@@ -1,10 +1,10 @@
 # .bashrc
 
 # Check if intaractive
-if [[ $- != *i* ]]
-then
-	return
-fi
+# if [[ $- != *i* ]]
+# then
+# 	return
+# fi
 
 # status colors
 red="\[$(tput setaf 1)\]"
@@ -13,8 +13,9 @@ yellow="\[$(tput setaf 3)\]"
 reset="\[$(tput sgr0)\]"
 
 # スクリプト読み込み
-source $HOME/.config/dotfiles/.git-completion.bash
-source $HOME/.config/dotfiles/.git-prompt.sh
+CONFIGPATH=${XDG_CONFIG_HOME:-$HOME/.config}
+source $CONFIGPATH/dotfiles/.git-completion.bash
+source $CONFIGPATH/dotfiles/.git-prompt.sh
 
 # プロンプトに各種情報を表示
 GIT_PS1_SHOWDIRTYSTATE=1
@@ -88,4 +89,5 @@ complete -F _makefile_targets make
 
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.poetry/bin:$PATH
+export PATH=$HOME/.pyenv/bin:$PATH
 export EDITOR=nvim
