@@ -10,7 +10,7 @@ Plug 'Townk/vim-autoclose'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 " git ---
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 " GUIs ---
 Plug 'vim-airline/vim-airline'
@@ -26,12 +26,12 @@ call plug#end()
 
 
 "" Fugitive ---- begin
-nmap [figitive] <Nop>
-map <Leader>g [figitive]
-nmap <silent> [figitive]s :<C-u>Gstatus<CR>
-nmap <silent> [figitive]d :<C-u>Gdiff<CR>
-nmap <silent> [figitive]b :<C-u>Gblame<CR>
-nmap <silent> [figitive]l :<C-u>Glog<CR>
+nmap [fugitive] <Nop>
+map <Leader>g [fugitive]
+nmap <silent> [fugitive]s :<C-u>Gstatus<CR>
+nmap <silent> [fugitive]d :<C-u>Gdiff<CR>
+nmap <silent> [fugitive]b :<C-u>Gblame<CR>
+nmap <silent> [fugitive]l :<C-u>Glog<CR>
 "" Fugitive ---- end
 
 "" QuickFix ---- begin
