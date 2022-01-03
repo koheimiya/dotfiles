@@ -1,10 +1,10 @@
 # .bashrc
 
 # Check if intaractive
-if [[ $- != *i* ]]
-then
-	return
-fi
+# if [[ $- != *i* ]]
+# then
+# 	return
+# fi
 
 # status colors
 red="\[$(tput setaf 1)\]"
@@ -84,3 +84,9 @@ function _makefile_targets {
     COMPREPLY=( $(compgen -W "${targets[@]}" -- $curr_arg ) );
 }
 complete -F _makefile_targets make
+
+
+export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.poetry/bin:$PATH
+export PATH=$HOME/.pyenv/bin:$PATH
+export EDITOR=nvim
