@@ -12,6 +12,11 @@ ln -sf $DIRPATH/src/.bashrc
 ln -sf $DIRPATH/src/.bash_profile
 ln -sf $DIRPATH/src/.tmux.conf
 
+# Install config files
+cd $CONFIGPATH
+ln -sf $DIRPATH/src/.git-completion.bash
+ln -sf $DIRPATH/src/.git-prompt.sh
+
 # Install pyenv
 [ -d $HOME/.pyenv ] || git clone git://github.com/yyuu/pyenv.git ~/.pyenv
 

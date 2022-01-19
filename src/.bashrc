@@ -5,6 +5,7 @@
 # then
 # 	return
 # fi
+CONFIGPATH=${XDG_CONFIG_HOME:-$HOME/.config}
 
 # status colors
 red="\[$(tput setaf 1)\]"
@@ -13,8 +14,8 @@ yellow="\[$(tput setaf 3)\]"
 reset="\[$(tput sgr0)\]"
 
 # スクリプト読み込み
-source $HOME/.config/dotfiles/src/.git-completion.bash
-source $HOME/.config/dotfiles/src/.git-prompt.sh
+source $CONFIGPATH/.git-completion.bash
+source $CONFIGPATH/.git-prompt.sh
 
 # プロンプトに各種情報を表示
 GIT_PS1_SHOWDIRTYSTATE=1
