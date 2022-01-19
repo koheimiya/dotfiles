@@ -22,6 +22,7 @@ ln -sf $DIRPATH/src/.git-prompt.sh
 
 # Install poetry
 which poetry || ( curl -sSL https://install.python-poetry.org | python3 - )
+poetry config virtualenvs.in-project true
 
 # Install virtual env for neovim
 ( sudo apt update && sudo apt install -y python3-venv python3-pip ) || exit 1
