@@ -19,22 +19,104 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tomasr/molokai'
 " Language server
-Plug 'prabirshrestha/vim-lsp'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 call plug#end()
 "" Plug manager ---- end
 
 
+"" Setting suggested by Coc-nvim --- begin
+" TextEdit might fail if hidden is not set.
+set hidden
 
-"" Fugitive ---- begin
-nmap [fugitive] <Nop>
-map <Leader>g [fugitive]
-nmap <silent> [fugitive]s :<C-u>Gstatus<CR>
-nmap <silent> [fugitive]d :<C-u>Gdiff<CR>
-nmap <silent> [fugitive]b :<C-u>Gblame<CR>
-nmap <silent> [fugitive]l :<C-u>Glog<CR>
-"" Fugitive ---- end
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+
+"" Setting suggested by Coc-nvim --- end
+
 
 "" QuickFix ---- begin
 augroup quickfix_config
@@ -48,9 +130,6 @@ function! AdjustWindowHeight(minheight, maxheight)
 endfunction
 "" QuickFix ---- end
 
-" override the defaults for a particular FileType
-autocmd FileType rust
-            \ let b:AutoClosePairs = AutoClose#ParsePairs("() [] {} ` \" '")
 
 "" nerdtree ---- begin
 " Auto open when specifying directory
@@ -58,12 +137,13 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 "" nerdtree ---- end
 
+
 "" Airline ---- begin
 let g:airline#extensions#tabline#enabled = 1
 "" Airline ---- end
 
+
 "" Default ---- begin
-set hidden
 set tabstop=8
 set autoindent
 set expandtab
@@ -77,7 +157,6 @@ set virtualedit=block     " カーソルを文字が存在しない部分でも�
 set hidden              " バッファを閉じる代わりに隠す（Undo履歴を残すため）
 set showmatch           " 対応する括弧などをハイライト表示する
 set matchtime=3         " 対応括弧のハイライト表示を3秒にする
-
 
 set number
 set ruler
@@ -98,60 +177,13 @@ try
 catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme zellner
 endtry
+
 " set termguicolors
 set background=dark
-" set background=light
 set t_Co=256
 
 "" Default ---- end
 
-
-if (executable('pyls'))
-    let s:pyls_config = {'pyls': {'plugins': {
-        \   'pycodestyle': {'enabled': v:true},
-        \   'pydocstyle': {'enabled': v:false},
-        \   'pylint': {'enabled': v:false},
-        \   'flake8': {'enabled': v:true},
-        \   'mypy': {'enabled': v:true},
-        \   'jedi_definition': {
-        \     'follow_imports': v:true,
-        \     'follow_builtin_imports': v:true,
-        \   },
-        \ }}}
-    " pylsの起動定義
-    augroup LspPython
-        autocmd!
-        autocmd User lsp_setup call lsp#register_server({
-            \ 'name': 'pyls',
-            \ 'cmd': { server_info -> ['pyls'] },
-            \ 'whitelist': ['python'],
-            \ 'workspace_config': s:pyls_config
-            \})
-    augroup END
-endif
-function! s:on_lsp_buffer_enabled() abort
-    setlocal omnifunc=lsp#complete
-    setlocal signcolumn=yes
-    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-    nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> gr <plug>(lsp-references)
-    nmap <buffer> gi <plug>(lsp-implementation)
-    nmap <buffer> gt <plug>(lsp-type-definition)
-    nmap <buffer> <leader>rn <plug>(lsp-rename)
-    nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
-    nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
-    nmap <buffer> K <plug>(lsp-hover)
-
-    nmap <buffer> <leader>mc :<C-u>Make<Space>edit-check<CR>
-    
-    " refer to doc to add more commands
-endfunction
-
-augroup lsp_install
-    au!
-    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
-    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
 
 
 filetype indent plugin on
