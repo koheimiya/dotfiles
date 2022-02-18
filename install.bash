@@ -63,10 +63,12 @@ esac
 [ -d $HOME/.pyenv ] || git clone git://github.com/yyuu/pyenv.git ~/.pyenv
 
 # Install poetry
-which poetry || ( curl -sSL https://install.python-poetry.org | python3 - )
-poetry config virtualenvs.in-project true
+which poetry || (
+    (curl -sSL https://install.python-poetry.org | python3 - ) &&
+    poetry config virtualenvs.in-project true
+)
 
-# Install virtual env for neovim
+# Install python3 and virtual env for neovim
 case $machine in
     Linux)
         sudo apt install -y python3-venv python3-pip

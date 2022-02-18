@@ -93,7 +93,7 @@ case "$(uname -s)" in
     Linux*)
         ;;
     Darwin*)
-        export PATH="~/Library/Python/3.9/bin:$PATH"
+        export PATH="$HOME/Library/Python/3.9/bin:$PATH"
         ;;
     *)
         echo WARNING Unsupported uname '(on installing poetry path)': ${unameOut}
