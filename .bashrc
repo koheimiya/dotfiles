@@ -50,7 +50,8 @@ alias vpn='/opt/cisco/anyconnect/bin/vpn'
 
 #my alias
 
-alias nvimr="NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim"
+# alias nvimr="NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim"
+export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
 if [ "$(uname)" = 'Darwin' ]; then
     # export LSCOLORS=xbfxcxdxbxegedabagacad
     alias ls='ls -G'
@@ -84,3 +85,12 @@ function _makefile_targets {
     COMPREPLY=( $(compgen -W "${targets[@]}" -- $curr_arg ) );
 }
 complete -F _makefile_targets make
+
+
+export MANPATH=/usr/local/texlive/2021/texmf-dist/doc/man:$MANPATH
+export INFOPATH=/usr/local/texlive/2021/texmf-dist/doc/info:$INFOPATH
+export PATH=/usr/local/texlive/2021/bin/x86_64-linux:$PATH
+export PATH=$HOME/.local/bin:$PATH
+
+# added by travis gem
+[ ! -s /home/kmiya/.travis/travis.sh ] || source /home/kmiya/.travis/travis.sh

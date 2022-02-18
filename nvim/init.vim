@@ -12,6 +12,8 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 " git ---
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+" tex ---
+Plug 'lervag/vimtex' ", {'for': 'tex'}
 " GUIs ---
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
