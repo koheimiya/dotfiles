@@ -42,12 +42,22 @@ which curl || (echo Install curl && exit 1)
 eval $update
 
 # Install Nodejs
-which node || (
-    eval "$install -y nodejs npm" &&
-    sudo npm install n -g &&
-    sudo n stable &&
-    sudo apt purge -y nodejs npm
-)
+case $machine in
+    Linux)
+        which node || (
+            sudo apt install -y nodejs npm &&
+            sudo npm install n -g &&
+            sudo n stable &&
+            sudo apt purge -y nodejs npm
+        )
+        ;;
+    Mac)
+        brew install node
+        ;;
+    *)
+        echo Unsupported machine: $machine
+        exit 1
+esac
 
 # Install pyenv
 [ -d $HOME/.pyenv ] || git clone git://github.com/yyuu/pyenv.git ~/.pyenv
