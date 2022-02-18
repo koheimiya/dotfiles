@@ -1,10 +1,11 @@
 # .bashrc
 
 # Check if intaractive
-if [[ $- != *i* ]]
-then
-	return
-fi
+# if [[ $- != *i* ]]
+# then
+# 	return
+# fi
+CONFIGPATH=${XDG_CONFIG_HOME:-$HOME/.config}
 
 # status colors
 red="\[$(tput setaf 1)\]"
@@ -13,8 +14,8 @@ yellow="\[$(tput setaf 3)\]"
 reset="\[$(tput sgr0)\]"
 
 # スクリプト読み込み
-source $HOME/.config/dotfiles/.git-completion.bash
-source $HOME/.config/dotfiles/.git-prompt.sh
+source $CONFIGPATH/.git-completion.bash
+source $CONFIGPATH/.git-prompt.sh
 
 # プロンプトに各種情報を表示
 GIT_PS1_SHOWDIRTYSTATE=1
@@ -87,10 +88,24 @@ function _makefile_targets {
 complete -F _makefile_targets make
 
 
+export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.pyenv/bin:$PATH
+case "$(uname -s)" in
+    Linux*)
+        ;;
+    Darwin*)
+        export PATH="$HOME/Library/Python/3.9/bin:$PATH"
+        ;;
+    *)
+        echo WARNING Unsupported uname '(on installing poetry path)': ${unameOut}
+esac
+export EDITOR=nvim
+
+
+# texlive for linux
 export MANPATH=/usr/local/texlive/2021/texmf-dist/doc/man:$MANPATH
 export INFOPATH=/usr/local/texlive/2021/texmf-dist/doc/info:$INFOPATH
 export PATH=/usr/local/texlive/2021/bin/x86_64-linux:$PATH
-export PATH=$HOME/.local/bin:$PATH
 
 # added by travis gem
 [ ! -s /home/kmiya/.travis/travis.sh ] || source /home/kmiya/.travis/travis.sh
