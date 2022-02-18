@@ -89,4 +89,13 @@ complete -F _makefile_targets make
 
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.pyenv/bin:$PATH
+case "$(uname -s)" in
+    Linux*)
+        ;;
+    Darwin*)
+        export PATH="~/Library/Python/3.9/bin:$PATH"
+        ;;
+    *)
+        echo WARNING Unsupported uname '(on installing poetry path)': ${unameOut}
+esac
 export EDITOR=nvim
