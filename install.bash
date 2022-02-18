@@ -1,9 +1,29 @@
 #!/bin/bash
-sudo apt update
+set -e  # Exit on failed command
+
+# Check the location of installation
 DIRPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 CONFIGPATH=${XDG_CONFIG_HOME:-$HOME/.config}
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)
+        machine=Linux
+        install='sudo apt install -y'
+        update='sudo apt update'
+        ;;
+    Darwin*)
+        machine=Mac
+        install='brew install'
+        update='brew update'
+        ;;
+    *)
+        echo Unsupported uname: ${unameOut}
+        exit 1
+esac
+echo OS detected: $machine
 echo dotfiles directory located at $DIRPATH
-echo installing config to $CONFIGPATH
+echo Installing dotfiles to $HOME, nodejs, pyenv, poetry and neovim, with config to $CONFIGPATH.
+read -p "Press enter to continue"
 
 # Install dot files
 cd $HOME
@@ -16,23 +36,38 @@ cd $CONFIGPATH
 ln -sf $DIRPATH/src/.git-completion.bash
 ln -sf $DIRPATH/src/.git-prompt.sh
 
+# check prerequisite and update package manager
+which git || (echo Install git && exit 1)
+which curl || (echo Install curl && exit 1)
+eval $update
+
 # Install Nodejs
 which node || (
-    sudo apt install -y nodejs npm &&
+    eval "$install -y nodejs npm" &&
     sudo npm install n -g &&
     sudo n stable &&
     sudo apt purge -y nodejs npm
-) || exit 1
+)
 
 # Install pyenv
-[ -d $HOME/.pyenv ] || git clone git://github.com/yyuu/pyenv.git ~/.pyenv || exit 1
+[ -d $HOME/.pyenv ] || git clone git://github.com/yyuu/pyenv.git ~/.pyenv
 
 # Install poetry
-which poetry || ( curl -sSL https://install.python-poetry.org | python3 - ) || exit 1
-poetry config virtualenvs.in-project true || exit 1
+which poetry || ( curl -sSL https://install.python-poetry.org | python3 - )
+poetry config virtualenvs.in-project true
 
 # Install virtual env for neovim
-sudo apt install -y python3-venv python3-pip || exit 1
+case $machine in
+    Linux)
+        sudo apt install -y python3-venv python3-pip
+        ;;
+    Mac)
+        brew install python3
+        ;;
+    *)
+        echo Unsupported machine: $machine
+        exit 1
+esac
 [ -d $HOME/nvim-python3 ] || (
     python3 -m venv ~/nvim-python3 &&
     source ~/nvim-python3/bin/activate &&
@@ -41,10 +76,9 @@ sudo apt install -y python3-venv python3-pip || exit 1
 ) || exit 1
 
 # Install neovim
-which nvim || sudo apt install -y neovim || exit 1
-cd $CONFIGPATH
+which nvim || eval "$install neovim"
 PLUGFILE=${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim
-[ -f "$PLUGFILE" ] || sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+[ -f "$PLUGFILE" ] || sh -c 'curl -fLo "$PLUGFILE" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+cd $CONFIGPATH
 ln -sf $DIRPATH/src/nvim
 nvim --headless +PlugUpdate +qall
