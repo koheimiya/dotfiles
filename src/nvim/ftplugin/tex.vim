@@ -23,7 +23,7 @@ if has('unix')
         let g:vimtex_view_general_options = '-r @line @pdf @tex'
 
         " This adds a callback hook that updates Skim after compilation
-        let g:vimtex_compiler_callback_hooks = ['UpdateSkim']
+        " let g:vimtex_compiler_callback_hooks = ['UpdateSkim']    deprecated, they said
         function! UpdateSkim(status)
             if !a:status | return | endif
 
@@ -53,7 +53,6 @@ endif
 
 
 
-let g:tex_flavor = "latex"
 let g:vimtex_quickfix_open_on_warning = 0
 let g:vimtex_quickfix_mode = 2
 if has('nvim')

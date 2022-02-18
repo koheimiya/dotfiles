@@ -2,6 +2,7 @@ let g:python3_host_prog = expand('~/nvim-python3/bin/python3')
 
 filetype off
 filetype indent plugin off
+let mapleader = "\<Space>"
 
 "" Plug manager ---- begin
 call plug#begin('~/.local/share/nvim/plugged')
@@ -27,6 +28,9 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'lervag/vimtex' ", {'for': 'tex'}
 call plug#end()
 "" Plug manager ---- end
+
+" Tex default setting
+let g:tex_flavor = "latex"
 
 
 "" Setting suggested by Coc-nvim --- begin
@@ -171,7 +175,6 @@ nnoremap j gj
 nnoremap k gk
 noremap <C-c> <esc>
 tnoremap <silent> <C-[> <C-\><C-n>
-let mapleader = "\<Space>"
 
 syntax enable
 try
