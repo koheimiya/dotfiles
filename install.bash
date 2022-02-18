@@ -52,7 +52,7 @@ case $machine in
         )
         ;;
     Mac)
-        brew install node
+        which node || brew install node
         ;;
     *)
         echo Unsupported machine: $machine
@@ -72,7 +72,7 @@ case $machine in
         sudo apt install -y python3-venv python3-pip
         ;;
     Mac)
-        brew install python3
+        which python3 || brew install python3
         ;;
     *)
         echo Unsupported machine: $machine
