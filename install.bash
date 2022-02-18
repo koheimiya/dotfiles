@@ -62,12 +62,6 @@ esac
 # Install pyenv
 [ -d $HOME/.pyenv ] || git clone git://github.com/yyuu/pyenv.git ~/.pyenv
 
-# Install poetry
-which poetry || (
-    (curl -sSL https://install.python-poetry.org | python3 - ) &&
-    poetry config virtualenvs.in-project true
-)
-
 # Install python3 and virtual env for neovim
 case $machine in
     Linux)
@@ -80,15 +74,21 @@ case $machine in
         echo Unsupported machine: $machine
         exit 1
 esac
+
+# Install poetry
+which poetry || (
+    (curl -sSL https://install.python-poetry.org | python3 - ) &&
+    poetry config virtualenvs.in-project true
+)
+
+# Install neovim
+which nvim || eval "$install neovim"
 [ -d $HOME/nvim-python3 ] || (
     python3 -m venv ~/nvim-python3 &&
     source ~/nvim-python3/bin/activate &&
     pip install pynvim neovim &&
     deactivate
 ) || exit 1
-
-# Install neovim
-which nvim || eval "$install neovim"
 PLUGFILE=${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim
 [ -f "$PLUGFILE" ] || sh -c 'curl -fLo "$PLUGFILE" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 cd $CONFIGPATH
