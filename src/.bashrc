@@ -16,6 +16,8 @@ reset="\[$(tput sgr0)\]"
 # スクリプト読み込み
 source $CONFIGPATH/.git-completion.bash
 source $CONFIGPATH/.git-prompt.sh
+# Bash completion for mac.
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
 # プロンプトに各種情報を表示
 GIT_PS1_SHOWDIRTYSTATE=1
