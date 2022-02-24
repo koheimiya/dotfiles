@@ -100,6 +100,7 @@ case "$(uname -s)" in
         echo WARNING Unsupported uname '(on installing poetry path)': ${unameOut}
 esac
 export EDITOR=nvim
+export VISUAL=nvim
 
 
 # texlive for linux
