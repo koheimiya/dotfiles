@@ -25,20 +25,6 @@ echo dotfiles directory located at $DIRPATH
 echo Installing dotfiles to $HOME, nodejs, pyenv, poetry and neovim, with config to $CONFIGPATH.
 read -p "Press enter to continue"
 
-# Install Bash completion
-case $machine in
-    Linux)
-        echo Installation of Bash completion is skipped. May be you want to install it manually.
-        ;;
-    Mac)
-        brew install bash-completion
-        ;;
-    *)
-        echo Unsupported machine: $machine
-        exit 1
-esac
-
-
 # Install dot files
 cd $HOME
 ln -sf $DIRPATH/src/.bashrc
@@ -54,6 +40,7 @@ ln -sf $DIRPATH/src/.git-prompt.sh
 which git || (echo Install git && exit 1)
 which curl || (echo Install curl && exit 1)
 eval $update
+eval "$install bash-completion"
 
 # Install Nodejs
 case $machine in
