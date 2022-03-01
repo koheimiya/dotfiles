@@ -91,7 +91,9 @@ complete -F _makefile_targets make
 
 
 export PATH=$HOME/.local/bin:$PATH
-export PATH=$HOME/.pyenv/bin:$PATH
+export PYENV_ROOT=$HOME/.pyenv
+export PATH=$PYENV_ROOT/bin:$PATH
+if command -v pyenv >/dev/null; then eval "$(pyenv init -)"; fi
 case "$(uname -s)" in
     Linux*)
         ;;
