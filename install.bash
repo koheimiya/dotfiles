@@ -68,7 +68,7 @@ esac
 case $machine in
     Linux)
         sudo apt install -y python3-venv python3-pip
-        sudo apt install -y git gcc make openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev zlib1g-dev
+        sudo apt install -y git gcc make openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev zlib1g-dev libffi-dev
         ;;
     Mac)
         which python3 || brew install python3
