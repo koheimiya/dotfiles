@@ -80,9 +80,9 @@ esac
 
 # Install poetry
 which poetry || (
-    (curl -sSL https://install.python-poetry.org | python3 - ) &&
-    poetry config virtualenvs.in-project true
+    (curl -sSL https://install.python-poetry.org | python3 - )
 )
+poetry config virtualenvs.in-project true
 
 # Install neovim
 which nvim || eval "$install neovim"
