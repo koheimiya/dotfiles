@@ -64,10 +64,11 @@ esac
 # Install pyenv
 [ -d $HOME/.pyenv ] || git clone git://github.com/yyuu/pyenv.git ~/.pyenv
 
-# Install python3 and virtual env for neovim
+# Install python3 and build dependencies
 case $machine in
     Linux)
         sudo apt install -y python3-venv python3-pip
+        sudo apt install -y git gcc make openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev
         ;;
     Mac)
         which python3 || brew install python3
