@@ -27,11 +27,13 @@ read -p "Press enter to continue"
 
 # Install dot files
 cd $HOME
-[ -f $HOME/.bashrc ] mv $HOME/.bashrc $HOME/bak.bashrc
-[ -f $HOME/.bash_profile ] mv $HOME/.bashrc $HOME/bak.bash_profile
-ln -sf $DIRPATH/src/.bashrc
-ln -sf $DIRPATH/src/.bash_profile
-ln -sf $DIRPATH/src/.tmux.conf
+[ ! -f $HOME/.bashrc ] || mv $HOME/.bashrc $HOME/bak.bashrc
+[ ! -f $HOME/.bash_profile ] || mv $HOME/.bash_profile $HOME/bak.bash_profile
+ln -sf $DIRPATH/src/core.bashrc .core.bashrc
+ln -sf $DIRPATH/src/init.bashrc .bashrc
+ln -sf $DIRPATH/src/core.bash_profile .core.bash_profile
+ln -sf $DIRPATH/src/init.bash_profile .bash_profile
+ln -sf $DIRPATH/src/core.tmux.conf .tmux.conf
 
 # Install config files
 cd $CONFIGPATH
@@ -39,7 +41,7 @@ ln -sf $DIRPATH/src/.git-completion.bash
 ln -sf $DIRPATH/src/.git-prompt.sh
 
 # check prerequisite and update package manager
-. $DIRPATH/src/.bashrc
+. $HOME/.bashrc
 which git || (echo Install git && exit 1)
 which curl || (echo Install curl && exit 1)
 eval $update
