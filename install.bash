@@ -41,6 +41,8 @@ esac
 
 # Install dot files
 cd $HOME
+[ -f $HOME/.bashrc ] mv $HOME/.bashrc $HOME/bak.bashrc
+[ -f $HOME/.bash_profile ] mv $HOME/.bashrc $HOME/bak.bash_profile
 ln -sf $DIRPATH/src/.bashrc
 ln -sf $DIRPATH/src/.bash_profile
 ln -sf $DIRPATH/src/.tmux.conf
