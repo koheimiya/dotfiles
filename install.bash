@@ -22,26 +22,10 @@ case "${unameOut}" in
 esac
 echo OS detected: $machine
 echo dotfiles directory located at $DIRPATH
-echo Installing dotfiles to $HOME, nodejs, pyenv, poetry and neovim, with config to $CONFIGPATH.
+echo Installing dotfiles to nodejs, pyenv, poetry and neovim.
 read -p "Press enter to continue"
 
-# Install dot files
-cd $HOME
-[ ! -f $HOME/.bashrc ] || mv $HOME/.bashrc $HOME/bak.bashrc
-[ ! -f $HOME/.bash_profile ] || mv $HOME/.bash_profile $HOME/bak.bash_profile
-ln -sf $DIRPATH/src/core.bashrc .core.bashrc
-ln -sf $DIRPATH/src/init.bashrc .bashrc
-ln -sf $DIRPATH/src/core.bash_profile .core.bash_profile
-ln -sf $DIRPATH/src/init.bash_profile .bash_profile
-ln -sf $DIRPATH/src/core.tmux.conf .tmux.conf
-
-# Install config files
-cd $CONFIGPATH
-ln -sf $DIRPATH/src/.git-completion.bash
-ln -sf $DIRPATH/src/.git-prompt.sh
-
 # check prerequisite and update package manager
-. $HOME/.bashrc
 which git || (echo Install git && exit 1)
 which curl || (echo Install curl && exit 1)
 eval $update
@@ -73,9 +57,11 @@ case $machine in
     Linux)
         sudo apt install -y python3-venv python3-pip
         sudo apt install -y git gcc make openssl libssl-dev libbz2-dev libreadline-dev libsqlite3-dev zlib1g-dev libffi-dev
+        python3 -m pip install --user pipx && python3 -m pipx ensurepath
         ;;
     Mac)
         which python3 || brew install python3
+        brew install pipx && pipx ensurepath
         ;;
     *)
         echo Unsupported machine: $machine
@@ -84,16 +70,16 @@ esac
 
 # Install poetry
 which poetry || (
-    (curl -sSL https://install.python-poetry.org | python3 - )
+    (curl -sSL https://install.python-poetry.org | python3 - ) &&
+    poetry config virtualenvs.in-project true
 )
-poetry config virtualenvs.in-project true
 
 # Install neovim
 which nvim || eval "$install neovim"
 [ -d $HOME/nvim-python3 ] || (
     python3 -m venv ~/nvim-python3 &&
     . ~/nvim-python3/bin/activate &&
-    pip3 install pynvim neovim &&
+    pip3 install pynvim neovim neovim-remote &&
     deactivate
 )
 PLUGFILE=${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim

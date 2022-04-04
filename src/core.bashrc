@@ -17,7 +17,7 @@ reset="\[$(tput sgr0)\]"
 source $CONFIGPATH/.git-completion.bash
 source $CONFIGPATH/.git-prompt.sh
 # Bash completion for mac.
-[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+[ -f /usr/local/etc/bash_completion ] && source /usr/local/etc/bash_completion
 
 # プロンプトに各種情報を表示
 GIT_PS1_SHOWDIRTYSTATE=1
@@ -112,5 +112,3 @@ export MANPATH=/usr/local/texlive/2021/texmf-dist/doc/man:$MANPATH
 export INFOPATH=/usr/local/texlive/2021/texmf-dist/doc/info:$INFOPATH
 export PATH=/usr/local/texlive/2021/bin/x86_64-linux:$PATH
 
-# added by travis gem
-[ ! -s /home/kmiya/.travis/travis.sh ] || source /home/kmiya/.travis/travis.sh
