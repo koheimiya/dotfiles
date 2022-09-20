@@ -120,6 +120,9 @@ nmap <leader>rn <Plug>(coc-rename)
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
 
 "" Setting suggested by Coc-nvim --- end
 

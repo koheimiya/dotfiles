@@ -53,8 +53,9 @@ alias vpn='/opt/cisco/anyconnect/bin/vpn'
 
 #my alias
 
-# alias nvimr="NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim"
-export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
+# export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
+alias nvimr="NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim"
+
 if [ "$(uname)" = 'Darwin' ]; then
     # export LSCOLORS=xbfxcxdxbxegedabagacad
     alias ls='ls -G'
