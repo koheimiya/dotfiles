@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+    dotfile_test:
+        image: dotfile
+        build: 
+            context: .
+            dockerfile: ./docker/Dockerfile
+            args:
+              - USER=dockeruser
+              - UID=${DOCKER_UID:?Please export DOCKER_UID}
+              - GID=${DOCKER_GID:?Please export DOCKER_GID}
+        user: ${DOCKER_UID}:${DOCKER_GID}
+        container_name: dotfile.test
+        working_dir: $PWD
+        volumes:
+          - $PWD:$PWD
+          - home:/home/dockeruser
+        command: bash -i
+        tty: true
+        stdin_open: true
+
+volumes:
+  home:
+    driver: local
