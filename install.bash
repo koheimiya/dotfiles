@@ -75,6 +75,14 @@ which poetry || (
 )
 
 # Install neovim
+case $machine in
+    Linux)
+        which nvim || (
+            eval "$install software-properties-common" &&
+            sudo add-apt-repository ppa:neovim-ppa/stable
+        )
+        ;;
+esac
 which nvim || eval "$install neovim"
 [ -d $HOME/nvim-python3 ] || (
     python3 -m venv ~/nvim-python3 &&
