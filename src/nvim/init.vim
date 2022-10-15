@@ -1,7 +1,8 @@
-let g:python3_host_prog = expand('~/nvim-python3/bin/python3')
-
 filetype off
 filetype indent plugin off
+
+let g:python3_host_prog = expand('~/nvim-python3/bin/python3')
+let mapleader = "\<Space>"
 
 "" Plug manager ---- begin
 call plug#begin('~/.local/share/nvim/plugged')
@@ -164,12 +165,12 @@ set laststatus=2
 set scrolloff=5
 set nocursorline
 set lazyredraw
+let mapleader = "\<SPACE>"
 
 nnoremap j gj
 nnoremap k gk
 noremap <C-c> <esc>
 tnoremap <silent> <C-[> <C-\><C-n>
-let mapleader = "\<Space>"
 
 syntax enable
 try
