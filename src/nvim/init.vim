@@ -1,5 +1,6 @@
 filetype off
 filetype indent plugin off
+let mapleader = "\<Space>"
 
 let g:python3_host_prog = expand('~/nvim-python3/bin/python3')
 let mapleader = "\<Space>"
@@ -24,8 +25,13 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+" tex ---
+Plug 'lervag/vimtex' ", {'for': 'tex'}
 call plug#end()
 "" Plug manager ---- end
+
+" Tex default setting
+let g:tex_flavor = "latex"
 
 
 "" Setting suggested by Coc-nvim --- begin
@@ -114,6 +120,9 @@ nmap <leader>rn <Plug>(coc-rename)
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
 
 
 "" Setting suggested by Coc-nvim --- end

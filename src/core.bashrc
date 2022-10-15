@@ -16,6 +16,8 @@ reset="\[$(tput sgr0)\]"
 # スクリプト読み込み
 source $CONFIGPATH/.git-completion.bash
 source $CONFIGPATH/.git-prompt.sh
+# Bash completion for mac.
+[ -f /usr/local/etc/bash_completion ] && source /usr/local/etc/bash_completion
 
 # プロンプトに各種情報を表示
 GIT_PS1_SHOWDIRTYSTATE=1
@@ -51,7 +53,9 @@ alias vpn='/opt/cisco/anyconnect/bin/vpn'
 
 #my alias
 
+# export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
 alias nvimr="NVIM_LISTEN_ADDRESS=/tmp/nvimsocket nvim"
+
 if [ "$(uname)" = 'Darwin' ]; then
     # export LSCOLORS=xbfxcxdxbxegedabagacad
     alias ls='ls -G'
@@ -88,5 +92,24 @@ complete -F _makefile_targets make
 
 
 export PATH=$HOME/.local/bin:$PATH
-export PATH=$HOME/.pyenv/bin:$PATH
+export PYENV_ROOT=$HOME/.pyenv
+export PATH=$PYENV_ROOT/bin:$PATH
+if command -v pyenv >/dev/null; then eval "$(pyenv init -)"; fi
+case "$(uname -s)" in
+    Linux*)
+        ;;
+    Darwin*)
+        export PATH="$HOME/Library/Python/3.9/bin:$PATH"
+        ;;
+    *)
+        echo WARNING Unsupported uname '(on installing poetry path)': ${unameOut}
+esac
 export EDITOR=nvim
+export VISUAL=nvim
+
+
+# texlive for linux
+export MANPATH=/usr/local/texlive/2021/texmf-dist/doc/man:$MANPATH
+export INFOPATH=/usr/local/texlive/2021/texmf-dist/doc/info:$INFOPATH
+export PATH=/usr/local/texlive/2021/bin/x86_64-linux:$PATH
+
