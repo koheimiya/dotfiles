@@ -7,12 +7,6 @@
 # fi
 CONFIGPATH=${XDG_CONFIG_HOME:-$HOME/.config}
 
-# status colors
-red="\[$(tput setaf 1)\]"
-green="\[$(tput setaf 2)\]"
-yellow="\[$(tput setaf 3)\]"
-reset="\[$(tput sgr0)\]"
-
 # スクリプト読み込み
 source $CONFIGPATH/.git-completion.bash
 source $CONFIGPATH/.git-prompt.sh
@@ -38,14 +32,6 @@ GIT_PS1_SHOWSTASHSTATE=1
 # export PS1="${green}\h${reset}:${yellow}\W${reset}"'$(__git_ps1 ['${red}'%s'${reset}'])'"${reset}> "
 export PS1='($(date +"%y/%m/%d;%H:%M:%S")) \[\033[1;32m\]\u@\h\[\033[00m\]:\[\033[1;34m\]\w\[\033[1;31m\]$(__git_ps1 "[%s]")\[\033[00m\]> '
 ##############
-
-
-
-# completion
-bind '"\e[A": history-search-backward'
-bind '"\e[0A": history-search-backward'
-bind '"\e[B": history-search-forward'
-bind '"\e[0B": history-search-forward'
 
 
 alias vpn='/opt/cisco/anyconnect/bin/vpn'
