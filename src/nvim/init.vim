@@ -152,6 +152,45 @@ let g:airline#extensions#tabline#enabled = 1
 "" Airline ---- end
 
 
+"" Netrw --- begin
+"ツリー表示
+"表示を変更したい場合は i で切替可能
+let g:netrw_liststyle=3
+"上部のバナーを非表示
+" I で toggle 可能
+let g:netrw_banner = 0
+"window サイズ
+let g:netrw_winsize = 25
+"Netrw で Enter 押下時の挙動設定
+let g:netrw_browse_split = 4
+let g:netrw_alto = 1
+
+"Netrw を toggle する関数を設定
+"元処理と異なり Vex を呼び出すことで左 window に表示
+let g:NetrwIsOpen=0
+function! ToggleNetrw()
+    if g:NetrwIsOpen
+        let i = bufnr("$")
+        while (i >= 1)
+            if (getbufvar(i, "&filetype") == "netrw")
+                silent exe "bwipeout " . i
+            endif
+            let i-=1
+        endwhile
+        let g:NetrwIsOpen=0
+    else
+        let g:NetrwIsOpen=1
+        silent Vex
+    endif
+endfunction
+
+"ショートカットの設定
+"= を 2 回連続押下で toggle 
+noremap <silent>== :call ToggleNetrw()<CR>
+
+"" Netrw --- end
+
+
 "" Default ---- begin
 set tabstop=8
 set autoindent
