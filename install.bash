@@ -24,7 +24,7 @@ echo OS detected: $machine
 echo dotfiles directory located at $DIRPATH
 echo Installing dotfiles to nodejs, pyenv, poetry and neovim.
 echo Additionally installing cmake and automake to MacOS.
-read -p "Press enter to continue"
+[ "$1" == "-n" ] || read -p "Press enter to continue"
 
 # check prerequisite and update package manager
 which git || (echo Install git && exit 1)
@@ -73,11 +73,20 @@ esac
 
 # Install poetry
 which poetry || (
-    (curl -sSL https://install.python-poetry.org | python3 - ) &&
-    poetry config virtualenvs.in-project true
+    pipx install poetry
+    # (curl -sSL https://install.python-poetry.org | python3 - ) &&
+    # poetry config virtualenvs.in-project false"
 )
 
 # Install neovim
+case $machine in
+    Linux)
+        which nvim || (
+            eval "$install software-properties-common" &&
+            sudo add-apt-repository ppa:neovim-ppa/stable
+        )
+        ;;
+esac
 which nvim || eval "$install neovim"
 [ -d $HOME/nvim-python3 ] || (
     python3 -m venv ~/nvim-python3 &&
