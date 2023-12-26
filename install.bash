@@ -23,6 +23,7 @@ esac
 echo OS detected: $machine
 echo dotfiles directory located at $DIRPATH
 echo Installing dotfiles to nodejs, pyenv, poetry and neovim.
+echo Additionally installing cmake and automake to MacOS.
 read -p "Press enter to continue"
 
 # check prerequisite and update package manager
@@ -31,7 +32,7 @@ which curl || (echo Install curl && exit 1)
 eval $update
 eval "$install bash-completion"
 
-# Install Nodejs
+# Install Nodejs (+ cmake and automake for MacOS)
 case $machine in
     Linux)
         which node || (
@@ -43,6 +44,8 @@ case $machine in
         ;;
     Mac)
         which node || brew install node
+        which cmake || brew install cmake
+        which automake || brew install automake
         ;;
     *)
         echo Unsupported machine: $machine
