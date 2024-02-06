@@ -5,6 +5,8 @@ set spell
 let g:vimtex_compiler_latexmk = {
       \ 'background': 1,
       \ 'build_dir': 'build',
+      \ 'out_dir': 'build',
+      \ 'aux_dir': 'build',
       \ 'continuous': 1,
       \ 'options': [
       \    '-pdf', 
@@ -17,7 +19,7 @@ let g:vimtex_compiler_latexmk = {
 
 if has('unix')
     if has('mac')
-        let g:vimtex_view_method = "skim"
+        let g:vimtex_view_method = 'skim'
         let g:vimtex_view_general_viewer
                 \ = '/Applications/Skim.app/Contents/SharedSupport/displayline'
         let g:vimtex_view_general_options = '-r @line @pdf @tex'
@@ -50,11 +52,11 @@ if has('unix')
 elseif has('win32')
 
 endif
-
-
-
-let g:vimtex_quickfix_open_on_warning = 0
-let g:vimtex_quickfix_mode = 2
-if has('nvim')
-    let g:vimtex_compiler_progname = 'nvr'
-endif
+" 
+" 
+" 
+" let g:vimtex_quickfix_open_on_warning = 0
+" let g:vimtex_quickfix_mode = 2
+" if has('nvim')
+"     let g:vimtex_compiler_progname = 'nvr'
+" endif

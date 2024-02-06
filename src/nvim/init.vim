@@ -19,6 +19,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tomasr/molokai'
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 " Language server
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'prabirshrestha/vim-lsp'
@@ -221,13 +222,13 @@ noremap <C-c> <esc>
 tnoremap <silent> <C-[> <C-\><C-n>
 
 syntax enable
+set termguicolors
 try
-    colorscheme molokai
+    colorscheme catppuccin-macchiato
 catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme zellner
 endtry
 
-" set termguicolors
 set background=dark
 set t_Co=256
 
