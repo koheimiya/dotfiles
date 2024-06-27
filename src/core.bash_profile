@@ -7,18 +7,22 @@ yellow="\[$(tput setaf 3)\]"
 reset="\[$(tput sgr0)\]"
 
 # completion
-bind '"\e[A": history-search-backward'
-bind '"\e[0A": history-search-backward'
-bind '"\e[B": history-search-forward'
-bind '"\e[0B": history-search-forward'
+case $SHELL in
+*/bash)
+    bind '"\e[A": history-search-backward'
+    bind '"\e[0A": history-search-backward'
+    bind '"\e[B": history-search-forward'
+    bind '"\e[0B": history-search-forward'
+   ;;
+esac
 
 # Avoid GUI interruption on SSH authentication
 unset SSH_ASKPASS
 
 # Get the aliases and functions
-if [ -f $HOME/.bashrc ]
+if [[ -f $HOME/.bashrc ]]
 then
 	source $HOME/.bashrc
 fi
 
-eval "$(pyenv init --path)"
+[[ -d $HOME/.pyenv ]] && "$(pyenv init --path)"

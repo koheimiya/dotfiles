@@ -20,13 +20,18 @@ case "${unameOut}" in
 esac
 echo OS detected: $machine
 echo Installing nodejs, python and neovim.
-[ "$1" == "-n" ] || read -p "Press enter to continue"
+[[ "$1" = "-n" ]] || read -p "Press enter to continue"
 
 # Update package manager
 eval $update
 
 # Install bash-completion
-eval "$install bash-completion"
+case $SHELL in
+*/bash)
+   # assume Bash
+   eval "$install bash-completion"
+   ;;
+esac
 
 # Install special packages: git and curl
 case $machine in
