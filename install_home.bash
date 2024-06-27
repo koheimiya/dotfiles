@@ -12,7 +12,6 @@ echo Installing dotfiles and configs to $HOME and $CONFIGPATH.
 case $SHELL in
 */zsh)
     # assume Zsh
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     rcfile=.zshrc
     profilefile=.zprofile
    ;;
