@@ -13,7 +13,7 @@ Plug 'Townk/vim-autoclose'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 " git ---
-" Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 " GUIs ---
 Plug 'vim-airline/vim-airline'
