@@ -20,7 +20,6 @@ case "${unameOut}" in
 esac
 echo OS detected: $machine
 echo Installing nodejs, python and neovim.
-[[ "$1" = "-n" ]] || read -p "Press enter to continue"
 
 # Update package manager
 eval $update

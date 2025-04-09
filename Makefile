@@ -1,9 +1,10 @@
 DOCKER_COMPOSE=DOCKER_UID=$$(id -u) DOCKER_GID=$$(id -g) docker compose
+SHELL=$${SHELL}
 .PHONY: install build shell
 
 install:
-	./install_home.bash
-	./install_super.bash
+	$(SHELL) -i ./install_home.bash
+	$(SHELL) -i ./install_super.bash
 
 build:
 	$(DOCKER_COMPOSE) build

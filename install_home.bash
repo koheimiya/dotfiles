@@ -6,7 +6,6 @@ DIRPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 CONFIGPATH=${XDG_CONFIG_HOME:-$HOME/.config}
 echo dotfiles directory located at $DIRPATH
 echo Installing dotfiles and configs to $HOME and $CONFIGPATH.
-([[ "$1" == "-n" ]] && shift) || read -p "Press enter to continue"
 
 # Install dot files
 case $SHELL in
@@ -56,14 +55,11 @@ cd $CONFIGPATH
 
 # Install pipx
 python3 -m pip install --user pipx && python3 -m pipx ensurepath
+source $HOME/$rcfile
 
 # Install pdm
 which pdm || pipx install pdm
 
 # Install neovim-remote
 which nvr || pipx install neovim-remote
-
-# if [[ "$1" == "-p" ]]; then
-#     # Install pyenv
-#     ([[ -d $HOME/.pyenv ]] && echo found .pyenv, skip installing it) || curl https://pyenv.run | bash
-# fi
+source $HOME/$rcfile
