@@ -107,3 +107,5 @@ export MANPATH=/usr/local/texlive/2021/texmf-dist/doc/man:$MANPATH
 export INFOPATH=/usr/local/texlive/2021/texmf-dist/doc/info:$INFOPATH
 export PATH=/usr/local/texlive/2021/bin/x86_64-linux:$PATH
 
+# tex for vim
+export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
