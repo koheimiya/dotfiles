@@ -9,6 +9,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 " basic ---
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-fugitive'
 Plug 'Townk/vim-autoclose'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
